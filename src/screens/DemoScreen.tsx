@@ -13,7 +13,7 @@ import { sfx } from '../game/sound';
 import type { Answer, Evaluation } from '../game/types';
 
 const DEMO_IDS = [1, 4, 7, 10];
-const DEMO_LABELS = ['Maximization', 'Constrained optimization', '0/1 Knapsack', 'Shortest path'];
+const DEMO_LABELS = ['Easy · Computer basics', 'Medium · Python basics', 'Medium · Lists and loops', 'Hard · Python debugging'];
 
 /** Presenter showcase: one challenge per chapter, isolated from the saved campaign. */
 export function DemoScreen({ onExit }: { onExit: () => void }) {
@@ -95,8 +95,8 @@ export function DemoScreen({ onExit }: { onExit: () => void }) {
 
         {solution && (
           <p className="mb-4 rounded-xl border border-gold/40 bg-gold/10 px-4 py-2 text-sm text-parchment">
-            <strong className="text-gold-light">Optimal:</strong> {solution.optimalLabel} ({solution.optimalValue} {solution.unit}). Verified by{' '}
-            {question.kind === 'choice' ? 'constraint filtering + objective comparison' : question.kind === 'knapsack' ? 'brute-force subset enumeration' : 'Dijkstra’s algorithm'}.
+            <strong className="text-gold-light">Correct answer:</strong> {solution.optimalLabel}. Checked against{' '}
+            {question.kind === 'quiz' ? 'the lesson and answer explanation' : question.kind === 'choice' ? 'constraint filtering + objective comparison' : question.kind === 'knapsack' ? 'brute-force subset enumeration' : 'Dijkstra’s algorithm'}.
           </p>
         )}
 

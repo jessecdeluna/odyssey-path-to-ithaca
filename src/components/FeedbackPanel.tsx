@@ -49,7 +49,7 @@ export function BreakdownTable({ rows, valueHeader = 'Objective' }: { rows: Brea
                 {r.feasible ? <Check className="h-4 w-4 text-success" aria-label="feasible" /> : <X className="h-4 w-4 text-danger" aria-label="infeasible" />}
               </td>
               <td className="rounded-r-lg px-2 py-1.5 text-xs text-parchment/70">
-                {r.optimal && <span className="mr-1 font-bold text-success">★ Optimal ·</span>}
+                {r.optimal && <span className="mr-1 font-bold text-success">★ Correct ·</span>}
                 {r.note}
               </td>
             </tr>
@@ -226,8 +226,8 @@ export function FeedbackPanel({ evaluation, xpEarned, usedHint, streak, chapterC
               </div>
             </Expandable>
           ) : (
-            <Expandable title="See the math">
-              <BreakdownTable rows={evaluation.breakdown} valueHeader={evaluation.unit === 'survival value' ? 'Value · weight' : 'Objective'} />
+            <Expandable title="Compare the answers">
+              <BreakdownTable rows={evaluation.breakdown} valueHeader={evaluation.unit === 'survival value' ? 'Value · weight' : evaluation.unit === 'answer' ? 'Answer' : 'Objective'} />
             </Expandable>
           )}
         </div>

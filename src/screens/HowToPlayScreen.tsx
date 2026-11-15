@@ -29,13 +29,13 @@ export function HowToPlayScreen({ onBack }: { onBack: () => void }) {
         <Frame title="How to Play">
           <div className="grid gap-6 md:grid-cols-2">
             <Rule icon={<Map className="h-5 w-5" />} title="Sail the voyage">
-              Four chapters stand between Troy and Ithaca. Each is a mythic island with three optimization challenges. Only the next chapter on the map is open.
+              Four chapters stand between Troy and Ithaca. Each is a mythic island with three computer or Python questions. Only the next chapter on the map is open.
             </Rule>
             <Rule icon={<Flame className="h-5 w-5" />} title="Three in a row — or start again">
               To clear a chapter you must answer all <strong>three</strong> challenges correctly, <strong>consecutively</strong>. One mistake ends the attempt and the chapter restarts at question 1.
             </Rule>
-            <Rule icon={<Target className="h-5 w-5" />} title="Think like a strategist">
-              Read the objective (maximize or minimize?), check every constraint, then compare. Answers are checked with real mathematics — any truly optimal answer is accepted.
+            <Rule icon={<Target className="h-5 w-5" />} title="Learn, trace, and debug">
+              Read the short lesson, trace any Python example, and choose one answer. Hard questions ask you to fix a small bug using concepts from earlier chapters.
             </Rule>
             <Rule icon={<Lightbulb className="h-5 w-5" />} title="Hints from Athena">
               Every question has a hint. Using one lowers that question’s reward from 100 XP to 50 XP but never fails you.
@@ -49,9 +49,9 @@ export function HowToPlayScreen({ onBack }: { onBack: () => void }) {
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
-              ['Choice challenges', 'Chapters I–II: pick the best option among cards or trails.'],
-              ['Cargo loading', 'Chapter III: select a combination of supplies, then Load the Ship.'],
-              ['Route plotting', 'Chapter IV: click connected islands to chart a path, then Submit Route.'],
+              ['Easy · Computer basics', 'Chapter I: learn RAM, CPUs, hardware, and software.'],
+              ['Medium · Python lessons', 'Chapters II–III: learn variables, types, conditions, lists, loops, and functions.'],
+              ['Hard · Spot the issue', 'Chapter IV: choose the fix for a short Python snippet using earlier lessons.'],
             ].map(([t, d]) => (
               <div key={t} className="rounded-xl border border-gold/20 bg-black/25 p-4">
                 <p className="font-display text-sm font-bold text-parchment">{t}</p>

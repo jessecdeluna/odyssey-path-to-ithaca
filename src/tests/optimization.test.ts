@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getQuestion, QUESTIONS } from '../data/questions';
+import { getQuestion, QUESTIONS } from './fixtures/optimizationQuestions';
 import {
   dijkstra,
   enumeratePaths,

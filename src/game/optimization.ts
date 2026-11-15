@@ -12,6 +12,7 @@ import type {
   Metric,
   MultipleChoiceQuestion,
   Question,
+  QuizQuestion,
   ShortestPathQuestion,
 } from './types';
 
@@ -561,13 +562,37 @@ export function evaluatePath(q: ShortestPathQuestion, path: string[]): Evaluatio
 // Dispatch
 // ═════════════════════════════════════════════════════════════
 
+export function evaluateQuiz(q: QuizQuestion, optionId: string): Evaluation {
+  const selected = q.options.find((o) => o.id === optionId);
+  const correct = selected?.id === q.correctOptionId;
+  return {
+    correct,
+    selectedLabel: selected?.label ?? 'No valid answer',
+    headline: correct ? 'Correct answer' : 'Try this concept again',
+    reason: selected?.explanation ?? 'Choose one of the available answers.',
+    discreetReason: correct ? q.lesson.explanation : 'That answer does not match the lesson. Trace the example again or use Athena’s hint.',
+    principle: q.lesson.principle,
+    nextTime: q.lesson.nextTime,
+    explanation: q.lesson.explanation,
+    optimalLabel: q.options.find((o) => o.id === q.correctOptionId)!.label,
+    optimalValue: 1,
+    playerValue: selected ? Number(correct) : null,
+    unit: 'answer',
+    breakdown: q.options.map((o) => ({
+      label: o.label, metric: o.id === q.correctOptionId ? 'Correct' : 'Incorrect',
+      feasible: true, optimal: o.id === q.correctOptionId, selected: o.id === optionId, note: o.explanation,
+    })),
+  };
+}
+
 export function evaluateAnswer(q: Question, answer: Answer): Evaluation {
+  if (q.kind === 'quiz' && answer.kind === 'quiz') return evaluateQuiz(q, answer.optionId);
   if (q.kind === 'choice' && answer.kind === 'choice') return evaluateChoice(q, answer.optionId);
   if (q.kind === 'knapsack' && answer.kind === 'knapsack') return evaluateKnapsack(q, answer.itemIds);
   if (q.kind === 'graph' && answer.kind === 'graph') return evaluatePath(q, answer.path);
   // Mismatched answer types are never correct.
   const fallback =
-    q.kind === 'choice' ? evaluateChoice(q, '') : q.kind === 'knapsack' ? evaluateKnapsack(q, ['__invalid__']) : evaluatePath(q, []);
+    q.kind === 'quiz' ? evaluateQuiz(q, '') : q.kind === 'choice' ? evaluateChoice(q, '') : q.kind === 'knapsack' ? evaluateKnapsack(q, ['__invalid__']) : evaluatePath(q, []);
   return {
     ...fallback,
     correct: false,
@@ -579,6 +604,7 @@ export function evaluateAnswer(q: Question, answer: Answer): Evaluation {
 
 /** Produce one mathematically optimal answer for a question (used by tests and demo tooling). */
 export function optimalAnswer(q: Question): Answer {
+  if (q.kind === 'quiz') return { kind: 'quiz', optionId: q.correctOptionId };
   if (q.kind === 'choice') return { kind: 'choice', optionId: solveChoice(q).optimalIds[0] };
   if (q.kind === 'knapsack') return { kind: 'knapsack', itemIds: solveKnapsackBruteForce(q.items, q.capacity).optimalSubsets[0].itemIds };
   return { kind: 'graph', path: dijkstra(q.nodes.map((n) => n.id), q.edges, q.start, q.goal).path };
@@ -586,6 +612,7 @@ export function optimalAnswer(q: Question): Answer {
 
 /** Produce a deliberately non-optimal answer for a question (used by tests). */
 export function suboptimalAnswer(q: Question): Answer {
+  if (q.kind === 'quiz') return { kind: 'quiz', optionId: q.options.find((o) => o.id !== q.correctOptionId)!.id };
   if (q.kind === 'choice') {
     const sol = solveChoice(q);
     return { kind: 'choice', optionId: q.options.find((o) => !sol.optimalIds.includes(o.id))!.id };

@@ -92,7 +92,7 @@ export function VictoryScreen({ state, onPlayAgain, onJourney, onReview }: Props
               <Map className="h-4 w-4" aria-hidden /> View journey
             </button>
             <button type="button" className="btn btn-teal px-6 py-3 text-xs" onClick={onReview}>
-              <BookOpen className="h-4 w-4" aria-hidden /> Review optimization concepts
+              <BookOpen className="h-4 w-4" aria-hidden /> Review computers & Python
             </button>
           </div>
           {confirm && (

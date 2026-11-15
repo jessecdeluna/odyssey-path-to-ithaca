@@ -154,7 +154,7 @@ export function ChallengeOverlay({ store, state }: { store: GameStore; state: Su
 }
 
 // ═════════════════════════════════════════════════════════════
-// Result: OPTIMAL SOLUTION! / AN UNWISE DECISION!
+// Result: CORRECT ANSWER! / AN UNWISE DECISION!
 // ═════════════════════════════════════════════════════════════
 
 export function ResultOverlay({ store, state }: { store: GameStore; state: SurvivalState }) {
@@ -177,7 +177,7 @@ export function ResultOverlay({ store, state }: { store: GameStore; state: Survi
     <div className="fixed inset-0 z-40 flex items-start justify-center overflow-y-auto bg-[#0a0705]/80 p-3 md:items-center" role="dialog" aria-modal="true" aria-labelledby="result-title">
       <div className={`${r.correct ? 'px-panel' : 'px-panel !border-[#c64f4f]'} my-4 w-full max-w-2xl p-5 md:p-6`}>
         <h2 id="result-title" className={`font-pixel text-center text-xl md:text-2xl ${r.correct ? 'text-[#f1d49a]' : 'text-[#ff8a7a]'}`}>
-          {r.correct ? 'OPTIMAL SOLUTION!' : 'AN UNWISE DECISION!'}
+          {r.correct ? 'CORRECT ANSWER!' : 'AN UNWISE DECISION!'}
         </h2>
         <div className="mt-4 flex items-start gap-3">
           <img src={portraitFor(r.questionId)} alt="" className="pixelated h-14 w-14 shrink-0 border-2 border-[#d8af63] bg-[#3a2a1a] object-cover object-top" />

@@ -13,7 +13,7 @@ function readEdition(): 'survival' | 'classic' {
   }
 }
 
-/** Two editions share the same optimization engine: the pixel-art survival game (default) and the classic map edition. */
+/** Two editions share the same question and evaluation engine: the pixel-art survival game (default) and the classic map edition. */
 export default function App() {
   const [edition, setEdition] = useState(readEdition);
   const choose = (e: 'survival' | 'classic') => {

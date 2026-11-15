@@ -21,7 +21,7 @@ export function TitleScreen({ hasSave, progressLabel, onNewGame, onContinue, onH
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pb-40 pt-10 text-center">
       <TitleScene />
       <motion.div className="relative z-10 flex max-w-3xl flex-col items-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }}>
-        <p className="font-display text-[11px] font-bold uppercase tracking-[0.5em] text-aegean-light md:text-xs">A Story-Driven Optimization Adventure</p>
+        <p className="font-display text-[11px] font-bold uppercase tracking-[0.5em] text-aegean-light md:text-xs">A Computer & Python Learning Adventure</p>
         <h1 className="font-display mt-3 text-6xl font-black leading-none text-gold-gradient text-shadow-deep sm:text-7xl md:text-8xl lg:text-9xl">ODYSSEY</h1>
         <p className="font-display mt-2 text-lg font-bold tracking-[0.35em] text-parchment md:text-2xl">THE PATH TO ITHACA</p>
         <Divider className="my-5 w-72" />
