@@ -139,12 +139,26 @@ export interface ShortestPathQuestion extends QuestionBase {
   hazards?: GraphHazard[];
 }
 
-export type Question = MultipleChoiceQuestion | KnapsackQuestion | ShortestPathQuestion;
+export type Difficulty = 'Easy' | 'Medium' | 'Hard';
+
+export interface QuizQuestion extends QuestionBase {
+  kind: 'quiz';
+  difficulty: Difficulty;
+  topic: string;
+  teaching: string;
+  code?: string;
+  expectedBehavior?: string;
+  options: { id: string; label: string; explanation: string }[];
+  correctOptionId: string;
+}
+
+export type Question = QuizQuestion | MultipleChoiceQuestion | KnapsackQuestion | ShortestPathQuestion;
 export type QuestionKind = Question['kind'];
 
 // ── Answers ──────────────────────────────────────────────────
 
 export type Answer =
+  | { kind: 'quiz'; optionId: string }
   | { kind: 'choice'; optionId: string }
   | { kind: 'knapsack'; itemIds: string[] }
   | { kind: 'graph'; path: string[] };
@@ -209,7 +223,7 @@ export interface Chapter {
   numeral: string;
   title: string;
   location: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+  difficulty: Difficulty;
   focus: string[];
   theme: ChapterTheme;
   intro: string[];

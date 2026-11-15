@@ -99,7 +99,7 @@ export function FailureScreen({ state, onRetry, onMap }: { state: GameState; onR
             </div>
             <div className="rounded-lg border-l-4 border-aegean-light bg-aegean/10 px-3 py-2">
               <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-aegean-light">
-                <Target className="h-3.5 w-3.5" aria-hidden /> 3 · The optimization principle
+                <Target className="h-3.5 w-3.5" aria-hidden /> 3 · The lesson
               </p>
               <p className="mt-1 text-sm text-parchment/90">{e.principle}</p>
             </div>
@@ -110,7 +110,7 @@ export function FailureScreen({ state, onRetry, onMap }: { state: GameState; onR
               <p className="mt-1 text-sm text-parchment/90">{e.nextTime}</p>
             </div>
             <Expandable title="Compare every option" icon={<BookOpen className="h-4 w-4" aria-hidden />}>
-              <BreakdownTable rows={e.breakdown} valueHeader={question.kind === 'graph' ? 'Total cost' : question.kind === 'knapsack' ? 'Value · weight' : 'Objective'} />
+              <BreakdownTable rows={e.breakdown} valueHeader={question.kind === 'graph' ? 'Total cost' : question.kind === 'knapsack' ? 'Value · weight' : question.kind === 'quiz' ? 'Answer' : 'Objective'} />
             </Expandable>
           </div>
 

@@ -6,7 +6,7 @@ const OP_TEXT = { '<=': '≤', '>=': '≥', '==': '=' } as const;
 
 export function StoryPanel({ question, indexLabel }: { question: Question; indexLabel: string }) {
   const constraints =
-    question.kind === 'choice'
+    question.kind === 'quiz' ? [] : question.kind === 'choice'
       ? question.constraints.map((c) => ({ label: c.label, math: `${c.key} ${OP_TEXT[c.op]} ${c.limit}` }))
       : question.kind === 'knapsack'
         ? [
@@ -30,6 +30,13 @@ export function StoryPanel({ question, indexLabel }: { question: Question; index
           <p key={i}>{p}</p>
         ))}
       </div>
+      {question.kind === 'quiz' && (
+        <section className="rounded-xl border border-bronze/40 bg-[#f7ecd0]/70 p-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-bronze-dark">{question.difficulty} · {question.topic}</p>
+          <h4 className="mt-2 font-bold text-ink">Learn before you answer</h4>
+          <p className="mt-1 text-sm leading-relaxed text-ink">{question.teaching}</p>
+        </section>
+      )}
       <div className="rounded-xl border border-bronze/40 bg-[#f7ecd0]/70 p-3">
         <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-bronze-dark">
           <Target className="h-4 w-4" aria-hidden /> Odysseus’s objective

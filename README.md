@@ -2,7 +2,7 @@
 
 *Survive the Journey. Outsmart the Gods. Find Your Way Home.*
 
-A 2D pixel-art survival platformer about Homer's *Odyssey* where the obstacles are optimization problems. Explore four side-scrolling islands as Odysseus, find the NPCs, and solve their challenges **three in a row**. Wrong answers cost health and hunger, and if health reaches zero the whole journey restarts (permadeath).
+A 2D pixel-art survival platformer about Homer's *Odyssey* where the challenges teach computer basics and Python. Explore four side-scrolling islands as Odysseus, find the NPCs, and solve their challenges **three in a row**. Wrong answers cost health and hunger, and if health reaches zero the whole journey restarts (permadeath).
 
 Built with **Phaser 3** (world, physics, pixel art) plus **React + TypeScript + Tailwind** (HUD, dialogue and puzzle overlays), on **Vite**. Every sprite, tile, background and sound is generated in code, so there are no external assets, network calls or API keys.
 
@@ -32,7 +32,7 @@ npm run build                   # typecheck + production build to dist/
 
 ## Rules
 
-- **Chapters:** Lotus-Eaters (maximize/minimize/ratios), Cyclops (constraints), Aeolus (0/1 knapsack), Final Passage (shortest paths / Dijkstra). Each has 3 NPCs you must help **in order**.
+- **Chapters:** Lotus-Eaters (Easy: RAM, CPU, hardware/software), Cyclops (Medium: Python variables, types, conditionals), Aeolus (Medium: lists, loops, functions), Final Passage (Hard: short Python debugging based on earlier lessons). Each has 3 NPCs you must help **in order**.
 - **Three in a row:** solving all three consecutively opens the exit (ship, cave mouth, wind-ship). XP is temporary until then.
 - **Wrong answer:** −10 / −15 / −20 / −25 health **and** hunger (by chapter). The streak resets to 0/3, temporary XP is discarded, and you're sent back to the chapter start. Inventory and earlier chapters are kept. The explanation teaches the principle without revealing the answer.
 - **Hunger** drains 1 point per 15 s of active play (never while paused or in dialogue). At 0 you starve: −3 health every 5 s.
@@ -47,7 +47,8 @@ From the main menu, choose **Demo mode** for a presenter build with isolated, un
 
 ## Architecture
 
-- `src/game/optimization.ts`: the solvers shared by both editions (constraint filtering, ratio objectives, brute-force knapsack with DP cross-check, Dijkstra with step trace). Any equally optimal answer is accepted.
+- `src/data/questions.ts`: 12 computer and Python quizzes with lessons, hints, and answer explanations.
+- `src/game/optimization.ts`: shared answer evaluation plus legacy optimization solvers covered by separate fixtures.
 - `src/survival/reducer.ts`: pure survival rules (hunger, starvation, food, ordered NPCs, atomic tokened submissions, streaks, XP, chapter exits, permadeath).
 - `src/survival/store.ts`: the single store shared by Phaser and React. It persists living runs and wipes the save on death.
 - `src/survival/save.ts`: save validation and repair; dead or finished runs can never be continued.

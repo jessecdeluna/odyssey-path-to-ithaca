@@ -181,8 +181,8 @@ describe('chapter isolation and rewards', () => {
     let s = completeChapter(completeChapter(completeChapter(onMap(), 1), 2), 3);
     const before = { crew: s.crew, supplies: s.supplies, elapsedTime: s.elapsedTime };
     s = enterChapter(s, 4);
-    s = solve(s); // shortest path adds its cost to time
-    expect(s.elapsedTime).toBe(before.elapsedTime + 7);
+    s = solve(s); // quiz answers do not add sailing time
+    expect(s.elapsedTime).toBe(before.elapsedTime);
     s = answer(s, false);
     expect({ crew: s.crew, supplies: s.supplies, elapsedTime: s.elapsedTime }).toEqual(before);
     s = gameReducer(s, { type: 'RETRY_CHAPTER' });
@@ -294,7 +294,7 @@ describe('full campaign', () => {
     expect(s.completedQuestionIds).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
     expect(s.permanentXP).toBe(1200);
     expect(s.supplies).toBe(18);
-    expect(s.elapsedTime).toBe(6 + 7 + 10 + 10);
+    expect(s.elapsedTime).toBe(6);
     expect(s.crew).toBe(12);
     expect(getChapter(4).questionIds).toEqual([10, 11, 12]);
   });

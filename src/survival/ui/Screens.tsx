@@ -104,7 +104,7 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
           <div className="font-term space-y-2 text-xl leading-6 text-[#f0e2bf]">
             <h3 className="font-pixel text-[10px] text-[#5fb8c4]">SURVIVE</h3>
             <p>• Explore each island and find the three NPCs marked <span className="text-[#ffd166]">!</span>. Press E to talk.</p>
-            <p>• Solve their optimization challenges in order. Get <strong>all three right in a row</strong> to open the exit.</p>
+            <p>• Solve their computer and Python quizzes in order. Get <strong>all three right in a row</strong> to open the exit.</p>
             <p>
               • A wrong answer costs <span className="text-[#ff8a7a]">health</span> and <span className="text-[#ffb347]">hunger</span> ({Object.values(PENALTIES).join(' / ')} by chapter), resets the
               chapter streak, and sends you back to the chapter start.
@@ -122,6 +122,7 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
                 <strong className="text-[#ff8a7a]">If health reaches zero, Odysseus dies and the whole journey restarts from Chapter I.</strong>
               </span>
             </p>
+            <p>• Easy: computer terminology. Medium: beginner Python. Hard: short debugging questions based on earlier lessons.</p>
             <p>• Hints from Athena halve a challenge's XP (100 → 50) but never hurt you.</p>
           </div>
         </div>

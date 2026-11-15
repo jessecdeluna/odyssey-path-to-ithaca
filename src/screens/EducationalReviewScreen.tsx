@@ -1,7 +1,5 @@
 import { ArrowLeft, Lock } from 'lucide-react';
 import type { ReactNode } from 'react';
-import { DijkstraEducation } from '../challenges/ShortestPathChallenge';
-import { KnapsackEducation } from '../challenges/KnapsackChallenge';
 import { DijkstraTrace, Expandable } from '../components/FeedbackPanel';
 import { Frame } from '../components/Ornaments';
 import { ChapterBackdrop } from '../components/Scenes';
@@ -23,6 +21,7 @@ function Concept({ title, chapter, children }: { title: string; chapter: string;
 
 function SolutionSummary({ q }: { q: Question }) {
   const ev = evaluateAnswer(q, optimalAnswer(q));
+  if (q.kind === 'quiz') return <p>Correct answer: <strong className="text-gold-light">{ev.optimalLabel}</strong></p>;
   if (q.kind === 'choice') {
     const sol = solveChoice(q);
     return (
@@ -60,38 +59,20 @@ export function EducationalReviewScreen({ completedChapters, onBack }: { complet
         <button type="button" className="btn btn-ghost mb-4 px-4 py-2 text-xs" onClick={onBack} autoFocus>
           <ArrowLeft className="h-4 w-4" aria-hidden /> Back
         </button>
-        <Frame title="The Scrolls of Wisdom — Optimization Concepts">
+        <Frame title="The Scrolls of Wisdom — Computers & Python">
           <div className="grid gap-4 md:grid-cols-2">
-            <Concept chapter="Chapter I" title="Maximization & minimization">
-              <p>
-                Every optimization problem has an <strong>objective</strong>: a quantity to make as large (maximize) or as small (minimize) as possible. Compare every option’s value and pick the best.
-              </p>
-              <p className="text-parchment/60">Food portions → bigger is better. Travel time → smaller is better.</p>
+            <Concept chapter="Chapter I · Easy" title="Computer terminology">
+              <p>RAM is temporary working memory. The CPU executes instructions. Hardware is physical equipment; software is the programs it runs.</p>
             </Concept>
-            <Concept chapter="Chapter I" title="Efficiency ratios">
-              <p>
-                Efficiency compares output to input: <code className="rounded bg-black/40 px-1">meals ÷ coins</code>. The best deal has the highest <em>rate</em>, even if another option has a bigger total.
-              </p>
+            <Concept chapter="Chapter II · Medium" title="Your first Python steps">
+              <p>Use = to assign values, int() to convert numeric text, and == to compare. An if/else runs one branch based on its condition.</p>
             </Concept>
-            <Concept chapter="Chapter II" title="Constraints & feasibility">
-              <p>
-                <strong>Constraints</strong> are rules a solution must obey (≤ 5 tools, ≤ 8 water, ≤ 15 minutes). Options that satisfy all of them form the <strong>feasible set</strong>.
-              </p>
-              <p>An infeasible option is never optimal — no matter how good its objective looks.</p>
+            <Concept chapter="Chapter III · Medium" title="Lists, loops & functions">
+              <p>List indexes start at 0. range(stop) excludes stop. Indentation defines what repeats. A function uses return to send a result back to its caller.</p>
             </Concept>
-            <Concept chapter="Chapter II" title="Objective functions & optimal feasible solutions">
-              <p>
-                Optimal feasible solution = the best objective value <em>within</em> the feasible set. Method: (1) eliminate infeasible options, (2) optimize among the survivors.
-              </p>
+            <Concept chapter="Chapter IV · Hard" title="Spot the issue">
+              <p>Compare the expected result with the actual behavior. Trace a tiny example, check list bounds and indentation, and follow the returned value. Each bug uses the earlier lessons.</p>
             </Concept>
-          </div>
-          <div className="mt-4 space-y-3">
-            <Expandable title="Chapter III · Resource allocation & the 0/1 knapsack" defaultOpen>
-              <KnapsackEducation />
-            </Expandable>
-            <Expandable title="Chapter IV · Weighted graphs, shortest paths & Dijkstra" defaultOpen>
-              <DijkstraEducation />
-            </Expandable>
           </div>
         </Frame>
 
@@ -112,6 +93,7 @@ export function EducationalReviewScreen({ completedChapters, onBack }: { complet
                           <Expandable key={id} title={`Q${id} · ${q.title}`}>
                             <div className="space-y-2 text-sm text-parchment/85">
                               <p className="italic text-parchment/70">{q.objectiveText}</p>
+                              {q.kind === 'quiz' && q.code && <pre className="overflow-x-auto rounded bg-black/40 p-3"><code>{q.code}</code></pre>}
                               <SolutionSummary q={q} />
                               <p>{q.lesson.explanation}</p>
                               <p className="text-parchment/60">Principle: {q.lesson.principle}</p>
